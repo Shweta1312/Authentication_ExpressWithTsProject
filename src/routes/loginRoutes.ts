@@ -44,11 +44,15 @@ router.get('/',(req: Request, res: Response) =>{
     res.send(`
     <div>
       <div>You are not logged in!!</div>
-      <a href="/login">Logout</a>
+      <a href="/login">Login</a>
     </div>
   `);
   }
 })
 
+router.get('/logout',(req: Request, res: Response) => {
+  req.session = null;
+  res.redirect('/');
+})
 
 export { router};
