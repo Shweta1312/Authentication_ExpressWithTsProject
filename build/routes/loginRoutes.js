@@ -8,21 +8,18 @@ function requireAuth(req, res, next) {
         return;
     }
     res.status(403);
-    res.send("Not permitted");
+    res.send('Not permitted');
 }
 var router = express_1.Router();
 exports.router = router;
-router.get('/login', function (req, res) {
-    res.send("\n    <form method=\"POST\">\n      <div> \n        <label>Email:</label>\n        <input name=\"email\" type=\"email\"/><br>\n        <label>Password:</label>\n        <input name=\"password\" type=\"password\"/>\n        <button type=\"submit\" name=\"submit\">Submit</button>\n    </form>\n  ");
-});
 router.post('/login', function (req, res) {
     var _a = req.body, email = _a.email, password = _a.password;
-    if (email && password && email === "hi@hi.com" && password === "pass") {
+    if (email && password && email === 'hi@hi.com' && password === 'pass') {
         req.session = { loggedIn: true };
         res.redirect('/');
     }
     else {
-        res.send("Incorrect email or password");
+        res.send('Incorrect email or password');
     }
 });
 router.get('/', function (req, res) {
@@ -38,5 +35,5 @@ router.get('/logout', function (req, res) {
     res.redirect('/');
 });
 router.get('/protected', requireAuth, function (req, res) {
-    res.send("Welcome to protected route, logged in user");
+    res.send('Welcome to protected route, logged in user');
 });
