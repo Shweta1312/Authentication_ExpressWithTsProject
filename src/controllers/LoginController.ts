@@ -1,17 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-import { get, controller, use } from './decorators';
+import { get, controller, use, post, bodyValidator } from './decorators';
 
-function logger(req: Request, res: Response, next: NextFunction): void {
-  console.log('Ready to use!');
 
-  next();
-  return;
-}
 
 @controller('/auth')
 class LoginController {
   @get('/login')
-  @use(logger)
   getLogin(req: Request, res: Response): void {
     res.send(`
       <form method="POST">
@@ -24,4 +18,24 @@ class LoginController {
       </form>
     `);
   }
+
+  @post('/login')
+  @bodyValidator('email','password')
+  postLogin(req: Request, res: Response): void {
+    const { email, password } = req.body;
+  
+    if (email === 'hi@hi.com' && password === 'pass') {
+      req.session = { loggedIn: true };
+      res.redirect('/');
+    } else {
+      res.send('Incorrect email or password');
+    }
+  }
+
+  @get('/logout')
+  getLogout(req: Request, res: Response): void{
+    req.session = null;
+    res.redirect('/');
+  }
+  
 }
