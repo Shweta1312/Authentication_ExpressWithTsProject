@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { get, controller, use, post, bodyValidator } from './decorators';
 
 function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -11,10 +11,9 @@ function requireAuth(req: Request, res: Response, next: NextFunction) {
 }
 
 @controller('')
-class RootController{
-
+class RootController {
   @get('/')
-  getRoot(req: Request, res: Response): void{
+  getRoot(req: Request, res: Response): void {
     if (req.session && req.session.loggedIn) {
       res.send(`
         <div>
@@ -34,7 +33,7 @@ class RootController{
 
   @get('/protected')
   @use(requireAuth)
-  getProtected(req: Request, res: Response): void{
+  getProtected(req: Request, res: Response): void {
     res.send('Welcome to protected route, logged in user');
   }
 }
