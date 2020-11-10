@@ -1,5 +1,5 @@
 import bodyParser from 'body-parser';
-import express, { Request, Response } from 'express';
+import express from 'express';
 import { AppRouter } from './AppRouter';
 import cookieSession from 'cookie-session';
 
